@@ -1,4 +1,4 @@
-CREATE TABLE Users ( mail varchar(50) primary key,mdp varchar(50), nom varchar(50), prenom varchar(50));
+CREATE TABLE Users ( mail varchar(50) primary key,mdp varchar(50), nom varchar(50), prenom varchar(50),nbQuizzDelete MEDIUMINT);
 CREATE TABLE Follow ( mail1 varchar(50),mail2 varchar(50), CONSTRAINT fk_mail1_Users FOREIGN KEY (mail1) REFERENCES Users(mail),CONSTRAINT fk_mail2_Users FOREIGN KEY (mail2) REFERENCES Users(mail),
                                                            CONSTRAINT pk_mail1_mail2 PRIMARY KEY(mail1,mail2));
 CREATE TABLE Quizz (idQuizz MEDIUMINT AUTO_INCREMENT PRIMARY KEY, nom varchar(100), description varchar(500), mail varchar(50), CONSTRAINT fk_mail_quizz FOREIGN KEY (mail) REFERENCES Users(mail));
