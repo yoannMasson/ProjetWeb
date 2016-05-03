@@ -7,23 +7,13 @@ if (isset($_GET['where']) AND $_GET['where']=="creation"){ //On vient de la cré
         header('Location: CreationCompte.php?message_error=pbPass');
       }else{
         try{
-          $mail = trim(htmlentities(htmlspecialchars($_POST['mail'])));
-          $mdp = md5("!^#!=".(trim(htmlentities(htmlspecialchars($_POST['mdp1'])))));
-          $nom = trim(htmlentities(htmlspecialchars($_POST['nom'])));
-          $prenom = trim(htmlentities(htmlspecialchars($_POST['prenom'])));
-          $bdd = new PDO('mysql:host=localhost;dbname=projetweb;charset=utf8', 'root', 'polyweb');
+          include('functionsDB.php');
+          insertInUsers($_POST['mail'],$_POST['mdp1'],$_POST['nom'],$_POST['prenom']);
         }
         catch(Exception $e)
         {
           die('Erreur : '.$e->getMessage());
         }
-        $req = $bdd->prepare('INSERT INTO users(mail, mdp, nom, prenom,nbQuizzDelete) VALUES(:mail, :mdp, :nom, :prenom,0)');
-        $req->execute(array(
-  	       'mail' => $mail,
-  	       'mdp' => $mdp,
-  	       'nom' => $nom,
-  	       'prenom' => $prenom,
-  	));
     }
   }
 }
@@ -37,7 +27,7 @@ if (isset($_GET['where']) AND $_GET['where']=="creation"){ //On vient de la cré
 </head>
 <body>
   <h1>Bienvenue sur ce site</h1>
-  <h2>Vous pouvez consulter votre profil sur cette page</h2>
+  <h2>Vous pouvez consulter votre profil sur cette page<?php echo(isInUsers($_POST['mail']));?></h2>
   <?php
   if (isset($_GET['where']) AND $_GET['where']=="creation"){
     if(!isset($_POST['mail']) or !isset($_POST['mdp1']) or !isset($_POST['mdp2']) or !isset($_POST['nom']) or !isset($_POST['prenom'])){
@@ -46,6 +36,6 @@ if (isset($_GET['where']) AND $_GET['where']=="creation"){ //On vient de la cré
     echo "<div class='alert alert-success' role='alert'>
     <a href=''# class='alert-link'>merci d''avoir crée votre profil</a>
     </div> ";} ?>
-
+<?php include('footer.php'); ?>
 </body>
 </html>
