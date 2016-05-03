@@ -8,7 +8,7 @@ if (isset($_GET['where']) AND $_GET['where']=="creation"){ //On vient de la cré
       }else{
         try{
           $mail = trim(htmlentities(htmlspecialchars($_POST['mail'])));
-          $mdp = password_hash(trim(htmlentities(htmlspecialchars($_POST['mdp1']))),PASSWORD_DEFAULT);
+          $mdp = md5("!^#!=".(trim(htmlentities(htmlspecialchars($_POST['mdp1'])))));
           $nom = trim(htmlentities(htmlspecialchars($_POST['nom'])));
           $prenom = trim(htmlentities(htmlspecialchars($_POST['prenom'])));
           $bdd = new PDO('mysql:host=localhost;dbname=projetweb;charset=utf8', 'root', 'polyweb');
