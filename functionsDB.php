@@ -2,11 +2,11 @@
 
   function insertInUsers($mail,$mdp,$nom,$prenom){
     $mail = trim(htmlentities(htmlspecialchars($mail)));
-    $mdp = md5("!^#!=".(trim(htmlentities(htmlspecialchars($mdp)))));
+    $mdp = crypte((trim(htmlentities(htmlspecialchars($mdp)))));
     $nom = trim(htmlentities(htmlspecialchars($nom)));
     $prenom = trim(htmlentities(htmlspecialchars($prenom)));
     try{
-      $bdd = new PDO('mysql:host=localhost;dbname=projetweb;charset=utf8', 'root', "polyweb");
+      $bdd = new PDO('mysql:host=mysql-projetwebmasson.alwaysdata.net;dbname=projetwebmasson_projetweb;charset=utf8', '122471_ecriture', "polyweb");
     }
     catch(Exception $e){
       return $e;
@@ -20,10 +20,11 @@
      ));
   }
 
+
   function isInUsers($mail){
     $mail = trim(htmlentities(htmlspecialchars($mail)));
     try{
-      $bdd = new PDO('mysql:host=localhost;dbname=projetweb;charset=utf8', 'root', "polyweb");
+      $bdd = new PDO('mysql:host=mysql-projetwebmasson.alwaysdata.net;dbname=projetwebmasson_projetweb;charset=utf8', '122471_ecriture', "polyweb");
     }
     catch(Exception $e){
       return $e;
@@ -41,6 +42,13 @@
 
 }
 
+function canConnected($mail,$mdp){
+  return true;
+}
 
+
+function crypte($mdp){
+  return (md5("!^#!=".$mdp));
+}
 
  ?>
