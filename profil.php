@@ -33,7 +33,6 @@ if (isset($_GET['where']) AND $_GET['where']=="creation"){ //On vient de la cré
   <h1>Bienvenue sur ce site</h1>
   <h2>Vous pouvez consulter votre profil sur cette page</h2>
   <?php
-  echo $_COOKIE['mail'];
   if (isset($_GET['where']) AND $_GET['where']=="creation"){
     if(!isset($_POST['mail']) or !isset($_POST['mdp1']) or !isset($_POST['mdp2']) or !isset($_POST['nom']) or !isset($_POST['prenom'])){
       header("CreationCompte.php?message_error='notFull'");
