@@ -42,7 +42,7 @@
 
 }
 
-function canConnected($mail,$mdp){
+function canConnect($mail,$mdp){
   return true;
 }
 
