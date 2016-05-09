@@ -20,13 +20,15 @@ if (isset($_GET['where']) AND $_GET['where']=="creation"){ //On vient de la cré
   }elseif (isset($_GET['where']) AND $_GET['where']=="connection"){//On vient de la page connection
     if(!isset($_POST['mail']) or !isset($_POST['mdp'])){
       header('Location: Connection.php?message_error=infoRequise');
-    }else{
-    setcookie('mail', $_POST['mail'], time() + 365*24*3600, null, null, false, true);
-    setcookie('mdp', crypte($_POST['mdp']), time() + 365*24*3600, null, null, false, true);
+    }
   }
-}
-if(!isset($_COOKIE['mail']) or !isset($_COOKIE['mail']) or !canConnect($_COOKIE['mail'],$_COOKIE['mdp'])){
-    header('Location: Connection.php?message_error=connectionRequise');
+setcookie('mail', $_POST['mail'], time() + 365*24*3600, null, null, false, true);
+setcookie('mdp', crypte($_POST['mdp']), time() + 365*24*3600, null, null, false, true);
+
+if(!isset($_COOKIE['mail']) or !isset($_COOKIE['mail'])){ //Dans tous les cas, il faut être connecté pour accéder à son profil
+  header('Location: Connection.php?message_error=connectionRequise');
+}elseif (!canConnect($_COOKIE['mail'],$_COOKIE['mdp'])) {
+  header('Location: Connection.php?message_error=infosErronees');
 }
 ?>
 <!DOCTYPE html>
@@ -41,38 +43,20 @@ if(!isset($_COOKIE['mail']) or !isset($_COOKIE['mail']) or !canConnect($_COOKIE[
   <h2>Vous pouvez consulter votre profil sur cette page</h2>
   <?php
   if (isset($_GET['where']) AND $_GET['where']=="creation"){
-    if(!isset($_POST['mail']) or !isset($_POST['mdp1']) or !isset($_POST['mdp2']) or !isset($_POST['nom']) or !isset($_POST['prenom'])){
-      header("CreationCompte.php?message_error='notFull'");
-    }
     echo "<div class='alert alert-success' role='alert'>
     <a href=''# class='alert-link'>merci d''avoir crée votre profil</a>
-    </div> ";}
-    try{ //Afichage des informations du profil
-      $bd = new PDO('mysql:host=mysql-projetwebmasson.alwaysdata.net;dbname=projetwebmasson_projetweb;charset=utf8', '122471_ecriture', 'polyweb');
-      $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-    catch(Exception $e){
-      echo $e;
-    }
-    $req = $bd->prepare("SELECT u.nom,prenom,nbQuizzDelete FROM users u WHERE u.mail = :mail ");
-    $req->execute(array(':mail' => $_COOKIE['mail']));
-    echo 'Adresse e-mail: '.htmlentities(htmlspecialchars(trim($_COOKIE['mail'])));
-    echo '<p>';
-    while ($donnees = $req->fetch())
-    {
-      echo 'Nom: '.$donnees['nom'].'</br>';
-      echo 'Prenom: '.$donnees['prenom'].'</br>';
-      echo 'Nombre de quizz supprimés: '.$donnees['nbQuizzDelete'].'</br>';
-    }
-    $req = $bd->prepare("SELECT count(*) as nbQuizz FROM quizz q WHERE q.mail = :mail ");
-    $req->execute(array(':mail' => $_COOKIE['mail']));
-    while ($donnees = $req->fetch())
-    {
-      echo 'Nombre de quizz: '.$donnees['nbQuizz'].'</br>';
-    }
+    </div> ";
+  }
 
-    echo '</p>';
-    $req->closeCursor();
- include('footer.php'); ?>
+  $donnees = UsersInfo();
+  echo 'Mail: '.$donnees['mail'].'</br>';
+  echo 'Nom: '.$donnees['nom'].'</br>';
+  echo 'Prenom: '.$donnees['prenom'].'</br>';
+  echo 'Nombre de quizz supprimés: '.$donnees['nbQuizzDelete'].'</br>';
+  $nbQuizz = nbQuizz();
+  echo 'Nombre de quizz: '.$nbQuizz['nbQuizz'].'</br>';
+  echo '</p>';
+
+  include('footer.php'); ?>
 </body>
 </html>

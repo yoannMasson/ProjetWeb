@@ -5,15 +5,20 @@
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
 </head>
 <body>
-  <?php include('header.php');
+  <?php
+    include('header.php');
     if (isset($_GET['message_error']) AND $_GET['message_error']=="infosErronees") {
       echo "<div class='alert alert-danger' role='alert'>
       <a href=''# class='alert-link'>Désolé, ce compte et/ou ce mot de passe n'existent pas</a>
-      </div> "; 
-    }elseif(isset($_GET['message_error']) AND $_GET['message_error']=="connectionRequise") {
+      </div> ";
+    }elseif(isset($_GET['message_error']) AND $_GET['message_error']=="infoRequise") {
       echo "<div class='alert alert-danger' role='alert'>
       <a href=''# class='alert-link'>Merci de bien vouloir remplir tous les champs</a>
       </div> "; }
+      elseif(isset($_GET['message_error']) AND $_GET['message_error']=="connectionRequise") {
+        echo "<div class='alert alert-danger' role='alert'>
+        <a href=''# class='alert-link'>Vous devez être connecter pour accéder à la page précédente</a>
+        </div> "; }
      ?>
   <h2>Vous pouvez connecter ici</h2>
 
