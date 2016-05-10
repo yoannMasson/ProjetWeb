@@ -6,8 +6,8 @@
 </head>
 <body>
   <?php
-  setcookie('mail', NULL, -1);
-  setcookie('mdp', NULL, -1);
+  setcookie('mail');
+  setcookie('mdp');
   include('header.php');
   include('footer.php'); ?>
   <h2>Vous êtes deconnecté</h2>
