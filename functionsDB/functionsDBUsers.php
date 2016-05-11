@@ -1,7 +1,7 @@
 <?php
 
 
-  function insertInUsers($mail,$mdp,$nom,$prenom){
+  function insertInUsers($mail,$mdp,$nom,$prenom){//Ajoute un utilisateur
     include('secure/config.php');
     $mail = trim(htmlentities(htmlspecialchars($mail)));
     $mdp = crypte((trim(htmlentities(htmlspecialchars($mdp)))));
@@ -15,15 +15,15 @@
     }
     $req = $bdd->prepare('INSERT INTO users(mail, mdp, nom, prenom,nbQuizzDelete) VALUES(:mail, :mdp, :nom, :prenom,0)');
     $req->execute(array(
-       'mail' => $mail,
-       'mdp' => $mdp,
-       'nom' => $nom,
-       'prenom' => $prenom,
+       ':mail' => $mail,
+       ':mdp' => $mdp,
+       ':nom' => $nom,
+       ':prenom' => $prenom,
      ));
   }
 
 
-  function isInUsers($mail){
+  function isInUsers($mail){//Vérifie si l'utilisateur est déjà dans la base
     include('secure/config.php');
     $mail = trim(htmlentities(htmlspecialchars($mail)));
     try{
@@ -34,12 +34,12 @@
     }
     $req = $bdd->prepare('SELECT mail from users where mail = :mail');
     $req->execute(array(
-       'mail' => $mail,
+       ':mail' => $mail,
      ));
      return $req->fetch();
    }
 
-function canConnect(){
+function canConnect(){//Vérifie si l'utilisateur peut se connecter avec les informations présentes dans le cookie
   if(!isset($_COOKIE['mail']) or !isset($_COOKIE['mail'])){
     return false;
   }else{
@@ -58,11 +58,11 @@ function canConnect(){
 }
 
 
-function crypte($mdp){
+function crypte($mdp){//Crypte un mot de passe
   return (md5("!^#!=".$mdp));
 }
 
-  function UsersInfo(){
+  function UsersInfo(){//Renvoie les informations de l'utilisateur, nécéssite d'être connecté
   if (canConnect()){
     include('secure/config.php');
       try{
@@ -77,7 +77,8 @@ function crypte($mdp){
       return $req->fetch();
     }
   }
-  function nbQuizz(){
+
+  function nbQuizz(){//Renvoie le nombre de quizz de l'utilisateur, nécéssite d'être connecté
     if (canConnect()){
       include('secure/config.php');
         try{

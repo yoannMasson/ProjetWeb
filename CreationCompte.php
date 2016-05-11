@@ -11,25 +11,13 @@
   <h2>Vous pouvez créer votre compte avec le formulaire ci-dessous</h2>
 
   <?php
-  if (isset($_GET['message_error']) AND $_GET['message_error']=="notFull"){
-    echo "<div class='alert alert-danger' role='alert'>
-    <a href=''# class='alert-link'>merci de remplir tous les champs</a>
-    </div> ";}
-    elseif (isset($_GET['message_error']) AND $_GET['message_error']=="pbPass") {
-      echo "<div class='alert alert-danger' role='alert'>
-      <a href=''# class='alert-link'>Merci de bien confirmer le mot de passe</a>
-      </div> ";
-    }elseif (isset($_GET['message_error']) AND $_GET['message_error']=="wrongUsers") {
-      echo "<div class='alert alert-danger' role='alert'>
-      <a href=''# class='alert-link'>E-mail déjà utilisée</a>
-      </div> ";
-    }
+  include_once('functionsError/creationError.php')
     ?>
 
   <form method="post" action="profil.php?where=Creation">
     <div class="input-group">
-      <span class="input-group-addon" id="basic-addon3">Mail</span>
-      <input type="text" class="form-control" name="mail" placeholder="e-mail" id="mailCreation" >
+      <span class="input-group-addon" id="basic-addon3">mail</span>
+      <input type="text" class="form-control" name="mail" placeholder="mail" id="mailCreation" >
     </div>
 
     <div class="input-group">

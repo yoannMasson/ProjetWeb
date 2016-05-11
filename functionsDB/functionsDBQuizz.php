@@ -1,5 +1,5 @@
 <?php
-function QuizzInfo(){
+function QuizzInfo(){ // renvoie les informations de tous les quizz d'un utilisateurs, nécéssite d'être connecté
   if (canConnect()){
     include('secure/config.php');
       try{
@@ -16,7 +16,21 @@ function QuizzInfo(){
     }
 }
 
-function insertInQuizz($nom,$description){
+function QuizzInfoId($idQuizz){ // renvoie les informations de ce quizz
+    include('secure/config.php');
+      try{
+        $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
+        $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      }
+      catch(Exception $e){
+        return $e;
+      }
+      $req = $bd->prepare("SELECT * FROM quizz q WHERE  q.idQuizz = :idQuizz");
+      $req->execute(array(':idQuizz' => $idQuizz));
+      return $req->fetch();
+    }
+
+function insertInQuizz($nom,$description){ //Insère un quizz, nécéssite d'être connecté
   if(canConnect()){
     include('secure/config.php');
     $mail = trim(htmlentities(htmlspecialchars($_COOKIE['mail'])));
@@ -30,15 +44,15 @@ function insertInQuizz($nom,$description){
     }
     $req = $bdd->prepare('INSERT INTO quizz(nom,description,mail) VALUES(:nom, :description, :mail)');
     $req->execute(array(
-       'mail' => $mail,
-       'nom' => $nom,
-       'description' => $description
+       ':mail' => $mail,
+       ':nom' => $nom,
+       ':description' => $description
      ));
   }
 
 }
 
-function isInQuizz($nomQuizz){
+function isInQuizz($nomQuizz){//Dit si l'utilisateur a déjà crée ce quizz, nécéssite d'être connecté
   include('secure/config.php');
   if(canConnect()){
     $nomQuizz = trim(htmlentities(htmlspecialchars($nomQuizz)));
@@ -56,7 +70,7 @@ function isInQuizz($nomQuizz){
   }
  }
 
- function canModified($idQuizz){
+ function belongsTo($idQuizz){//Dit si le quizz appartient à l'utilisateur, nécéssite d'être connecté
    include('secure/config.php');
    if(canConnect()){
      $idQuizz = trim(htmlentities(htmlspecialchars($idQuizz)));
@@ -74,9 +88,9 @@ function isInQuizz($nomQuizz){
    }
   }
 
-  function deleteQuizz($idQuizz){
+  function deleteQuizz($idQuizz){//Supprime un quizz, nécéssite d'être connecté et de posséder le quizz
     include('secure/config.php');
-    if(canConnect()){
+    if(canConnect() and belongsTo($idQuizz)){
       $idQuizz = trim(htmlentities(htmlspecialchars($idQuizz)));
       try{
         $bdd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginEcriture,$passEcriture);
@@ -91,20 +105,19 @@ function isInQuizz($nomQuizz){
     }
    }
 
-   function nbAnswer($nomQuizz){
+   function nbQuestion($idQuizz){
      include('secure/config.php');
       if(canConnect()){
-       $idQuizz = trim(htmlentities(htmlspecialchars($nomQuizz)));
+       $idQuizz = trim(htmlentities(htmlspecialchars($idQuizz)));
        try{
          $bdd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
        }
        catch(Exception $e){
          return $e;
        }
-       $req = $bdd->prepare('SELECT count(*) as nb FROM Reponse r,Quizz q WHERE q.nomQuizz = :nomQuizz AND q.mail = :mail AND q.idQuizz = r.idQuizz' );
+       $req = $bdd->prepare('SELECT count(*) as nb FROM question ,quizz  WHERE quizz.idQuizz = question.idQuizz AND quizz.idQuizz = :idQuizz' );
        $req->execute(array(
-          'nomQuizz' => $nomQuizz,
-          ':mail' => $_COOKIE['mail']
+          ':idQuizz' => $idQuizz
         ));
       return $req -> fetch();
       }
