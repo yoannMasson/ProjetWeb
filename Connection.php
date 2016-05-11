@@ -9,7 +9,7 @@
     include_once('header.php');
     include_once('functionsError/connectionError.php');
      ?>
-  <h2>Vous pouvez connecter ici</h2>
+  <h2>Vous pouvez connecter ici TEST TEST TEST</h2>
 
 
     <form class="form-horizontal" method="post" action="profil.php?where=Connection">
