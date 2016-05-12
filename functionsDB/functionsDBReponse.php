@@ -2,7 +2,7 @@
 function insertInReponse($texte,$idQuizz,$reponse){//Insère une réponse dans le quizz, nécéssite d'être connecté
   include('secure/config.php');
   $texte = trim(htmlentities(htmlspecialchars($texte)));
-  $idQuizz = crypte((trim(htmlentities(htmlspecialchars($idQuizz)))));
+  $idQuizz = trim(htmlentities(htmlspecialchars($idQuizz)));
   $reponse = trim(htmlentities(htmlspecialchars($reponse)));
   if(canConnect()){
     try{
