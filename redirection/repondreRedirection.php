@@ -2,7 +2,7 @@
 if(!canConnect()){
   header('Location: connection.php?message_error=connectionRequise');
   exit;
-}elseif (!isset($_GET['idQuizz'])) {
+}elseif (!isset($_GET['idQuizz']) or !isInQuizz($_GET['idQuizz'])) {
   header('Location: profil.php');
   exit;
 }

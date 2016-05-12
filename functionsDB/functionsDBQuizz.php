@@ -16,7 +16,8 @@ function QuizzInfo(){ // renvoie les informations de tous les quizz d'un utilisa
     }
 }
 
-function AllQuizzInfo(){ // renvoie les informations de tous les quizz d'un utilisateurs, nécéssite d'être connecté
+
+function AllQuizzInfo(){ // renvoie les informations sur les quizzs, le nombre de réponses et sur l'utilisateur, nécéssite d'être connecté
   include('secure/config.php');
     try{
       $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
@@ -26,7 +27,7 @@ function AllQuizzInfo(){ // renvoie les informations de tous les quizz d'un util
       return $e;
     }
     $req = $bd->prepare("SELECT u.nom AS nomU,u.prenom,u.mail,q.nom AS nomQ,q.description,q.date,q.idQuizz,count(*) as nb FROM users u,quizz q,question WHERE q.mail = u.mail and question.idQuizz=q.idQuizz
-                        group by nomU,u.prenom,u.mail,nomQ,q.description,q.date,q.idQuizz ");
+                        group by nomU,u.prenom,u.mail,nomQ,q.description,q.date,q.idQuizz");
     $req->execute(array());
     return $req;
 }
@@ -42,6 +43,21 @@ function QuizzInfoId($idQuizz){ // renvoie les informations de ce quizz
         return $e;
       }
       $req = $bd->prepare("SELECT * FROM quizz q WHERE  q.idQuizz = :idQuizz");
+      $req->execute(array(':idQuizz' => $idQuizz));
+      return $req->fetch();
+    }
+
+function AllQuizzInfoId($idQuizz){ // renvoie les informations de ce quizz
+    include('secure/config.php');
+      try{
+        $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
+        $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      }
+      catch(Exception $e){
+        return $e;
+      }
+      $req = $bd->prepare("SELECT u.nom AS nomU,u.prenom,u.mail,q.nom AS nomQ,q.description,q.date,q.idQuizz,count(*) as nb FROM users u,quizz q,question WHERE q.mail = u.mail
+                          and q.idQuizz = :idQuizz AND question.idQuizz=q.idQuizz group by nomU,u.prenom,u.mail,nomQ,q.description,q.date,q.idQuizz");
       $req->execute(array(':idQuizz' => $idQuizz));
       return $req->fetch();
     }
@@ -68,7 +84,7 @@ function insertInQuizz($nom,$description){ //Insère un quizz, nécéssite d'êt
 
 }
 
-function isInQuizz($nomQuizz){//Dit si l'utilisateur a déjà crée ce quizz, nécéssite d'être connecté
+function isInQuizzUsers($nomQuizz){//Dit si l'utilisateur a déjà crée ce quizz, nécéssite d'être connecté
   include('secure/config.php');
   if(canConnect()){
     $nomQuizz = trim(htmlentities(htmlspecialchars($nomQuizz)));
@@ -78,13 +94,32 @@ function isInQuizz($nomQuizz){//Dit si l'utilisateur a déjà crée ce quizz, n�
     catch(Exception $e){
       return $e;
     }
-    $req = $bdd->prepare('SELECT * from quizz,users where nom = :nomQuizz  and users.mail = quizz.mail');
+    $req = $bdd->prepare('SELECT * from quizz,users where nom = :nomQuizz  and users.mail = quizz.mail and users.mail = :mail');
     $req->execute(array(
-       'nomQuizz' => $nomQuizz,
+       ':nomQuizz' => $nomQuizz,
+       ':mail' => $_COOKIE['mail']
      ));
      return $req->fetch();
   }
  }
+
+ function isInQuizz($idQuizz){//Dit si l'idQuizz existe
+   include('secure/config.php');
+   if(canConnect()){
+     $idQuizz = trim(htmlentities(htmlspecialchars($idQuizz)));
+     try{
+       $bdd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
+     }
+     catch(Exception $e){
+       return $e;
+     }
+     $req = $bdd->prepare('SELECT * from quizz where idQuizz = :idQuizz ');
+     $req->execute(array(
+        ':idQuizz' => $idQuizz,
+      ));
+      return $req->fetch();
+   }
+  }
 
  function belongsTo($idQuizz){//Dit si le quizz appartient à l'utilisateur, nécéssite d'être connecté
    include('secure/config.php');
@@ -96,9 +131,10 @@ function isInQuizz($nomQuizz){//Dit si l'utilisateur a déjà crée ce quizz, n�
      catch(Exception $e){
        return $e;
      }
-     $req = $bdd->prepare('SELECT * from quizz,users where idQuizz = :idQuizz  and users.mail = quizz.mail');
+     $req = $bdd->prepare('SELECT * from quizz,users where idQuizz = :idQuizz  and users.mail = quizz.mail and quizz.mail = :mail');
      $req->execute(array(
-        'idQuizz' => $idQuizz
+        'idQuizz' => $idQuizz,
+        ':mail' => $_COOKIE['mail']
       ));
       return $req->fetch();
    }

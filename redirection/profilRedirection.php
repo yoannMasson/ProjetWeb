@@ -34,7 +34,7 @@
     header('Location: profil.php');
     exit;
   }elseif (isset($_POST['nomQuizz']) and isset($_POST['description'])) {//On vient de la création de Quizz
-    if(!isInQuizz($_POST['nomQuizz'])){
+    if(!isInQuizzUsers($_POST['nomQuizz'])){
       insertInQuizz($_POST['nomQuizz'],$_POST['description']);
     }else{
       $quizzDejaCree = true;

@@ -13,7 +13,7 @@ function insertInQuestion($texte,$idQuizz){
                       ':idQuizz' => $idQuizz));
 }
 
-function QuestionInfo($idQuizz){ // renvoie les informations de tous les réponses d'un quizz, nécéssite d'être connecté
+function QuestionInfo($idQuizz){ // renvoie les informations de toutes les questions d'un quizz, nécéssite d'être connecté
   if (canConnect()){
     include('secure/config.php');
       try{
