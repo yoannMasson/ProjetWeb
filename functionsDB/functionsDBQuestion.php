@@ -1,5 +1,6 @@
 <?php
 function insertInQuestion($texte,$idQuizz){
+
   include('secure/config.php');
   $texte = trim(htmlentities(htmlspecialchars($texte)));
   try{
