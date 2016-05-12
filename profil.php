@@ -34,7 +34,9 @@ include_once('redirection/profilRedirection.php');
         echo '<p>';
         echo 'Nom: '.$quizzInfo['nom'].'</br>';
         echo 'Description: '.$quizzInfo['description'].'</br>';
+        echo 'Date du quizz: '.date('d-m-Y', $quizzInfo['date']).'</br>';
         echo 'Nombre de questions: '.$reponse['nb'].'</br>';
+        echo 'Lien à donner pour répondre au quizz: <a href="repondreQuizz.php?idQuizz='.$quizzInfo['idQuizz'].'">repondreQuizz.php?idQuizz='.$quizzInfo['idQuizz'].'</a></br>';
         echo '<a class="btn btn-info" href="quizz.php?idQuizz='.$quizzInfo['idQuizz'].'" role="button">Voir le quizz</a>';
         echo '</p>';
       }

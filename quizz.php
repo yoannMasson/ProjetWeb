@@ -21,6 +21,7 @@ include_once('redirection/quizzRedirection.php');
       echo '<p>';
       echo 'Nom: '.$quizzInfo['nom'].'</br>';
       echo 'Description: '.$quizzInfo['description'].'</br>';
+      echo 'Date du quizz: '.date('d-m-Y', $quizzInfo['date']).'</br>';
       echo 'Nombre de questions: '.$reponse['nb'].'</br>';
       echo '<a class="btn btn-danger" href="destructionQuizz.php?idQuizz='.$quizzInfo['idQuizz'].'" role="button">Supprimer ce quizz</a>';
       echo '</p>';

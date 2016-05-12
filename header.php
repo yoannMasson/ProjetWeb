@@ -3,7 +3,8 @@
     <?php
     include_once('functionsDB/functionsDBUsers.php');
     $info = UsersInfo();
-    echo '<a href="profil.php" class="elementHeader">Profil'.' '.$info['nom'].' '.$info['prenom'].'</a>';?>
+    echo '<a href="profil.php" class="elementHeader">Profil'.' '.$info['nom'].' '.$info['prenom'].' /</a>';?>
+    <a href="affichageQuizz.php" class="elementHeader">Voir tous les quizz</a>
     <ul class="navbar-right">
       <a href="CreationCompte.php" class="elementHeader">Créer un compte /</a>
       <?php

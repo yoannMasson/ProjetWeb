@@ -9,7 +9,7 @@
     include_once('header.php');
     include_once('functionsError/connectionError.php');
      ?>
-  <h2>Vous pouvez connecter ici TEST TEST TEST</h2>
+  <h2>Vous pouvez connecter ici</h2>
 
 
     <form class="form-horizontal" method="post" action="profil.php?where=Connection">
@@ -27,6 +27,7 @@
       <input type="submit" value="Valider" />
     </form>
 
+    <a class="btn btn-info btn-sm" href="creationCompte.php" role="button">Créer un compte</a>
     <?php include('footer.php'); ?>
 </body>
 </html>

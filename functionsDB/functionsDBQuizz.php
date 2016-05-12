@@ -9,12 +9,28 @@ function QuizzInfo(){ // renvoie les informations de tous les quizz d'un utilisa
       catch(Exception $e){
         return $e;
       }
-      $req = $bd->prepare("SELECT q.idQuizz,q.nom,q.description FROM users u,quizz q WHERE u.mail = :mail AND u.mdp = :mdp AND q.mail = u.mail");
+      $req = $bd->prepare("SELECT q.idQuizz,q.nom,q.description,q.date FROM users u,quizz q WHERE u.mail = :mail AND u.mdp = :mdp AND q.mail = u.mail");
       $req->execute(array(':mail' => $_COOKIE['mail']
                           ,':mdp' => $_COOKIE['mdp']));
       return $req;
     }
 }
+
+function AllQuizzInfo(){ // renvoie les informations de tous les quizz d'un utilisateurs, nécéssite d'être connecté
+  include('secure/config.php');
+    try{
+      $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
+      $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+    catch(Exception $e){
+      return $e;
+    }
+    $req = $bd->prepare("SELECT u.nom AS nomU,u.prenom,u.mail,q.nom AS nomQ,q.description,q.date,q.idQuizz,count(*) as nb FROM users u,quizz q,question WHERE q.mail = u.mail and question.idQuizz=q.idQuizz
+                        group by nomU,u.prenom,u.mail,nomQ,q.description,q.date,q.idQuizz ");
+    $req->execute(array());
+    return $req;
+}
+
 
 function QuizzInfoId($idQuizz){ // renvoie les informations de ce quizz
     include('secure/config.php');
@@ -42,7 +58,7 @@ function insertInQuizz($nom,$description){ //Insère un quizz, nécéssite d'êt
     catch(Exception $e){
       return $e;
     }
-    $req = $bdd->prepare('INSERT INTO quizz(nom,description,mail) VALUES(:nom, :description, :mail)');
+    $req = $bdd->prepare('INSERT INTO quizz(nom,description,mail,date) VALUES(:nom, :description, :mail,'.time().')');
     $req->execute(array(
        ':mail' => $mail,
        ':nom' => $nom,
@@ -82,7 +98,7 @@ function isInQuizz($nomQuizz){//Dit si l'utilisateur a déjà crée ce quizz, n�
      }
      $req = $bdd->prepare('SELECT * from quizz,users where idQuizz = :idQuizz  and users.mail = quizz.mail');
      $req->execute(array(
-        'idQuizz' => $idQuizz,
+        'idQuizz' => $idQuizz
       ));
       return $req->fetch();
    }

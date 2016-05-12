@@ -14,4 +14,9 @@
     Vous ne pouvez pas modifier ce quizz
     </div> ";
   }
+  if (isset($_GET['message_error']) AND $_GET['message_error']=="canNotAnswer"){
+    echo "<div class='alert alert-danger' role='alert'>
+    Vous ne pouvez pas répondre à ce quizz
+    </div> ";
+  }
   ?>

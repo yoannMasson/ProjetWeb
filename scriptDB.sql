@@ -5,7 +5,8 @@ CREATE TABLE Quizz (idQuizz MEDIUMINT AUTO_INCREMENT PRIMARY KEY, nom varchar(10
               ALTER TABLE quizz ADD CONSTRAINT unique_quizz_nom_mail UNIQUE (
               mail,
               nom
-              )
+            );
+              ALTER TABLE quizz ADD COLUMN DATE INT;
 CREATE TABLE Question (texte varchar(500),idQuizz MEDIUMINT, CONSTRAINT pk_texte_idQuizz_Question PRIMARY KEY(texte,idQuizz),
                                                              CONSTRAINT fk_idQuizz_question FOREIGN KEY (idQuizz) REFERENCES Quizz(idQuizz));
 CREATE TABLE Reponse (mail varchar(50),texte varchar(50),idQuizz mediumint,reponse varchar(500), CONSTRAINT pk_texte_mail_idQuizz_Reponse PRIMARY KEY(mail,texte,idQuizz),
