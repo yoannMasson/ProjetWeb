@@ -19,8 +19,9 @@ function insertInReponse($texte,$idQuizz,$reponse){//Insère une réponse dans l
        ':reponse' => $reponse
      ));
   }
+}
 
-  function isInReponse($texte,$idQuizz){//Vérifie si l'utilisateur n'a pas déjà répondu à la question, nécéssite d'être connecté
+ function isInReponse($texte,$idQuizz){//Vérifie si l'utilisateur n'a pas déjà répondu à la question, nécéssite d'être connecté
     if (canConnect()){
       include('secure/config.php');
       $mail = trim(htmlentities(htmlspecialchars($mail)));
@@ -39,6 +40,5 @@ function insertInReponse($texte,$idQuizz,$reponse){//Insère une réponse dans l
        return $req->fetch();
     }
   }
-}
 
 ?>

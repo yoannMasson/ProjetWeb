@@ -23,12 +23,15 @@ include_once('redirection/repondreRedirection.php');
 
   echo '<form class="form-horizontal" method="post" action="affichageQuizz.php?where=Reponse">';
   $questions = QuestionInfo($_GET['idQuizz']);
+  $i=0;
   foreach ($questions as $question){
     echo '<p>';
     echo 'question: '.$question['texte'].'</br>';
     echo '<div class="input-group">
-      <input type="text" class="form-control" name="'.$question['texte'].'" placeholder="réponse" id="reponse'.$question['texte'].'" >
+      <input type="text" class="form-control" name="reponse'.$i.'" placeholder="réponse" id="reponse'.$question['texte'].'" >
     </div> </p>';
+    echo '<input type="hidden" name="texte'.$i.'" value="'.$question['texte'].'">';
+    $i=$i+1;
   }
   echo '<input type="hidden" name="idQuizz" value="'.$_GET['idQuizz'].'">';
   echo '<input type="submit" class="btn btn-success form-control" value="envoyer mes réponses"/>';
