@@ -4,7 +4,7 @@ include_once ('functionsDB/functionsDBUsers.php');
 include_once ('functionsDB/functionsDBQuizz.php');
 include_once ('functionsDB/functionsDBQuestion.php');
 include_once('functionsDB/functionsDBReponse.php');
-include_once ('redirection/affichageQuestionRedirection.php');?>
+include_once ('redirection/affichageReponseRedirection.php');?>
 <!DOCTYPE html>
 <html>
 <head>
