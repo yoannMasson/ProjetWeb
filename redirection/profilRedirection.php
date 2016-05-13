@@ -18,8 +18,8 @@
     {
       die('Erreur : '.$e->getMessage());
     }
-    setcookie('mail', $_POST['mail'], time() + 365*24*3600, null, null, false, true);
-    setcookie('mdp', crypte($_POST['mdp']), time() + 365*24*3600, null, null, false, true);
+    setcookie('mail', $_POST['mail'], time() + 2*3600, null, null, false, true);
+    setcookie('mdp', crypte($_POST['mdp']), time() + 2*3600, null, null, false, true);
     header('Location: profil.php');
     exit;
 

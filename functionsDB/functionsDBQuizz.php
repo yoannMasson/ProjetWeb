@@ -27,13 +27,13 @@ function AllQuizzInfo(){ // renvoie les informations sur les quizzs, le nombre d
       return $e;
     }
     $req = $bd->prepare("SELECT u.nom AS nomU,u.prenom,u.mail,q.nom AS nomQ,q.description,q.date,q.idQuizz,count(*) as nb FROM users u,quizz q,question WHERE q.mail = u.mail and question.idQuizz=q.idQuizz
-                        group by nomU,u.prenom,u.mail,nomQ,q.description,q.date,q.idQuizz");
+                        group by nomU,u.prenom,u.mail,nomQ,q.description,q.date,q.idQuizz order by q.date DESC");
     $req->execute(array());
     return $req;
 }
 
 
-function QuizzInfoId($idQuizz){ // renvoie les informations de ce quizz
+function QuizzInfoId($idQuizz){ // renvoie les informations de ce quizz et de l'utilisateur concerné
     include('secure/config.php');
       try{
         $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
@@ -42,7 +42,7 @@ function QuizzInfoId($idQuizz){ // renvoie les informations de ce quizz
       catch(Exception $e){
         return $e;
       }
-      $req = $bd->prepare("SELECT * FROM quizz q WHERE  q.idQuizz = :idQuizz");
+      $req = $bd->prepare("SELECT q.idQuizz,q.date,q.nom as nomQ,q.description,u.mail,u.nom as nomU, u.prenom FROM quizz q,users u WHERE q.mail = u.mail AND q.idQuizz = :idQuizz");
       $req->execute(array(':idQuizz' => $idQuizz));
       return $req->fetch();
     }
@@ -173,7 +173,25 @@ function isInQuizzUsers($nomQuizz){//Dit si l'utilisateur a déjà crée ce quiz
         ));
       return $req -> fetch();
       }
-   }
+    }
+
+
+   function nbAnswerId($idQuizz){//Renvoie le nombre de reponse d'un quizz
+     include('secure/config.php');
+       $idQuizz = trim(htmlentities(htmlspecialchars($idQuizz)));
+       try{
+         $bdd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
+       }
+       catch(Exception $e){
+         return $e;
+       }
+       $req = $bdd->prepare('SELECT count(*) as nb FROM reponse r  WHERE r.idQuizz = :idQuizz');
+       $req->execute(array(
+          ':idQuizz' => $idQuizz
+        ));
+      return $req -> fetch();
+      }
+
 
 
 ?>

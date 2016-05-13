@@ -2,7 +2,7 @@
 function insertInQuestion($texte,$idQuizz){
 
   include('secure/config.php');
-  $texte = trim(htmlentities(htmlspecialchars($texte)));
+  $texte = $texte;
   try{
     $bdd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginEcriture,$passEcriture);
   }

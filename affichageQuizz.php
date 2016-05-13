@@ -19,16 +19,17 @@ include_once ('redirection/affichageQuizzRedirection.php');?>
   $quizzInfo = AllQuizzInfo();
   foreach ($quizzInfo as $quizz){
     echo '<p>';
-    echo 'Nom du propriétaire: '.$quizz['nomU'].' '.$quizz['prenom'].'</br>';
-    echo 'Mail: '.$quizz['mail'].'</br>';
-    echo 'Nom du quizz: '.$quizz['nomQ'].'</br>';
-    echo $quizz['description'].'</br>';
-    echo 'Nombre de question du quizz: '.$quizz['nb'].'</br>';
-    echo 'Date du quizz: '.date('d-m-Y',$quizz['date']).'</br>';
+    echo '<strong>Nom du propriétaire:</strong> '.$quizz['nomU'].' '.$quizz['prenom'].'</br>';
+    echo '<strong>Mail:</strong> '.$quizz['mail'].'</br>';
+    echo '<strong>Nom du quizz:</strong> '.$quizz['nomQ'].'</br>';
+    echo '<strong>Description:</strong> '.$quizz['description'].'</br>';
+    echo '<strong>Nombre de question du quizz:</strong> '.$quizz['nb'].'</br>';
+    echo '<strong>Date du quizz:</strong> '.date('d-m-Y',$quizz['date']).'</br>';
     if(canConnect()){
       echo '<a class="btn btn-info btn-sm" href="repondreQuizz.php?idQuizz='.$quizz['idQuizz'].'" role="button">Repondre au quizz</a>';
+      echo '<a class="btn btn-info btn-sm" href="affichageReponse.php?idQuizz='.$quizz['idQuizz'].'" role="button">Voir les réponses</a>';
     }else{
-      echo '<a class="btn btn-info btn-sm" href="connection.php" role="button">Connectez-vous pour répondre au quizz</a>';
+      echo '<a class="btn btn-info btn-sm" href="Connection.php" role="button">Connectez-vous pour répondre au quizz</a>';
     }
     echo '</p>';
   }?>

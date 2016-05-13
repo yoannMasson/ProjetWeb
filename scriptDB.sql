@@ -7,9 +7,9 @@ CREATE TABLE Quizz (idQuizz MEDIUMINT AUTO_INCREMENT PRIMARY KEY, nom varchar(10
               nom
             );
               ALTER TABLE quizz ADD COLUMN DATE INT;
-CREATE TABLE Question (texte varchar(500),idQuizz MEDIUMINT, CONSTRAINT pk_texte_idQuizz_Question PRIMARY KEY(texte,idQuizz),
+CREATE TABLE Question (texte varchar(255),idQuizz MEDIUMINT, CONSTRAINT pk_texte_idQuizz_Question PRIMARY KEY(texte,idQuizz),
                                                              CONSTRAINT fk_idQuizz_question FOREIGN KEY (idQuizz) REFERENCES Quizz(idQuizz));
-CREATE TABLE Reponse (mail varchar(50),texte varchar(50),idQuizz mediumint,reponse varchar(500), CONSTRAINT pk_texte_mail_idQuizz_Reponse PRIMARY KEY(mail,texte,idQuizz),
+CREATE TABLE Reponse (mail varchar(50),texte varchar(255),idQuizz mediumint,reponse varchar(500), CONSTRAINT pk_texte_mail_idQuizz_Reponse PRIMARY KEY(mail,texte,idQuizz),
                                                                                                  CONSTRAINT fk_idQuizz_Reponse FOREIGN KEY (idQuizz) REFERENCES Question(idQuizz),
                                                                                                  CONSTRAINT fk_mail_Reponse FOREIGN KEY (mail) REFERENCES Users(mail),
                                                                                                  CONSTRAINT fk_texte_Reponse FOREIGN KEY (texte) REFERENCES Question(texte));

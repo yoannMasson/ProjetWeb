@@ -21,12 +21,12 @@ include_once('redirection/repondreRedirection.php');
   echo "<h2>".$quizz['nomQ']."</h2>";
   echo "<h3>".$quizz['description']."</h3>";
 
-  echo '<form class="form-horizontal" method="post" action="affichageQuizz.php?where=Reponse">';
+  echo '<form class="form-horizontal" method="post" action="affichageReponse.php?idQuizz='.$_GET['idQuizz'].'">';
   $questions = QuestionInfo($_GET['idQuizz']);
   $i=0;
   foreach ($questions as $question){
     echo '<p>';
-    echo 'question: '.$question['texte'].'</br>';
+    echo '<strong>question: </strong>'.$question['texte'].'</br>';
     echo '<div class="input-group">
       <input type="text" class="form-control" name="reponse'.$i.'" placeholder="réponse" id="reponse'.$question['texte'].'" >
     </div> </p>';

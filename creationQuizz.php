@@ -2,7 +2,7 @@
 include_once('functionsDB/functionsDBUsers.php');
 include_once('functionsDB/functionsDBQuizz.php');
   if(!(canConnect())){
-  header('Location: connection.php?message_error=connectionRequise');
+  header('Location: Connection.php?message_error=connectionRequise');
   exit;
   }
   ?>
