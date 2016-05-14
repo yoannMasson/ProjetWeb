@@ -11,7 +11,6 @@ if(canConnect()){
         $i=0;
         foreach ($questions as $question) {
           if(isset($_POST['reponse'.$i])){//L'utilisateur a répondu à cette question
-            echo "on devrait avoir ajouté";
             $reponse = $_POST['reponse'.$i];
             insertInReponse($_POST['texte'.$i],$_POST['idQuizz'],$reponse);
           }
