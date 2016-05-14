@@ -72,7 +72,7 @@ include_once('redirection/profilRedirection.php');
         echo '<strong>Description:</strong> '.$quizzInfo['description'].'</br>';
         echo '<strong>Date du quizz:</strong> '.date('d-m-Y', $quizzInfo['date']).'</br>';
         echo '<strong>Nombre de questions:</strong> '.$reponse['nb'].'</br>';
-        echo '<strong>Nombre total de reponse:</strong> '.$nbAnswer['nb'].'</br>';
+        echo '<strong>Nombre total de personne ayant répondu:</strong> '.$nbAnswer['nb'].'</br>';
         echo '<strong>Lien à donner pour répondre au quizz:</strong> <a href="http://projetwebmasson.herokuapp.com/repondreQuizz.php?idQuizz='.$quizzInfo['idQuizz'].'">http://projetwebmasson.herokuapp.com/repondreQuizz.php?idQuizz='.$quizzInfo['idQuizz'].'</a></br>';
         echo '<a class="btn btn-info" href="quizz.php?idQuizz='.$quizzInfo['idQuizz'].'" role="button">Voir le quizz</a>';
         echo '<a class="btn btn-info btn-sm" href="affichageReponse.php?idQuizz='.$quizzInfo['idQuizz'].'" role="button">Voir les réponses</a>';

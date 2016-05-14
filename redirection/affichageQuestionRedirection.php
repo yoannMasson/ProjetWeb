@@ -5,7 +5,7 @@ if(canConnect()){
       exit;
   }
 }else{
-  header('Location: Connection.php?message_error=connectionRequise');
+  header('Location: Connexion.php?message_error=connectionRequise');
 }
 
 ?>

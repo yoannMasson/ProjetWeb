@@ -11,7 +11,7 @@
        if(isset($_COOKIE['mail']) and isset($_COOKIE['mdp']) and canConnect($_COOKIE['mail'],$_COOKIE['mdp'])){
         echo '<a href="Deconnection.php"class="elementHeader text-right">Se deconnecter</a>';
       }else{
-        echo '<a href="Connection.php"class="elementHeader  text-right">Connection</a>';
+        echo '<a href="Connexion.php"class="elementHeader  text-right">Connexion</a>';
       } ?>
   </ul>
   </div>

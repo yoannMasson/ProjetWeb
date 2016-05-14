@@ -4,7 +4,7 @@ if(!isset($_GET['idQuizz'])){
   exit;
 }
 if (!canConnect()){
-  header('Location: Connection.php?message_error=connectionRequise');
+  header('Location: Connexion.php?message_error=connectionRequise');
   exit;
 }if (!belongsTo($_GET['idQuizz'])){
   header('Location: profil.php?message_error=droitRequis');

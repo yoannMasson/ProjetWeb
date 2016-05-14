@@ -31,7 +31,7 @@
 
   }elseif (isset($_GET['where']) AND $_GET['where']=="Connection"){//On vient de la page connection
     if(!isset($_POST['mail']) or !isset($_POST['mdp'])){
-      header('Location: Connection.php?message_error=infoRequise');
+      header('Location: Connexion.php?message_error=infoRequise');
       exit;
     }else{
     setcookie('mail', $_POST['mail'], time() + 365*24*3600);
@@ -54,9 +54,9 @@ if (isset($_GET['where']) AND $_GET['where'] =="profil"){ //On vient de rajouter
 }
 
 if(!isset($_COOKIE['mail']) or !isset($_COOKIE['mdp'])){ //Dans tous les cas, il faut être connecté pour accéder à son profil
-  header('Location: Connection.php?message_error=connectionRequise');
+  header('Location: Connexion.php?message_error=connectionRequise');
 }elseif (!canConnect()) {
-  header('Location: Connection.php?message_error=infosErronees');
+  header('Location: Connexion.php?message_error=infosErronees');
   exit;
 }
 

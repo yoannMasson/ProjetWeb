@@ -186,7 +186,7 @@ function isInQuizzUsers($nomQuizz){//Dit si l'utilisateur a déjà crée ce quiz
        catch(Exception $e){
          return $e;
        }
-       $req = $bdd->prepare('SELECT count(*) as nb FROM reponse r  WHERE r.idQuizz = :idQuizz');
+       $req = $bdd->prepare('SELECT count(DISTINCT mail) as nb FROM reponse r  WHERE r.idQuizz = :idQuizz');
        $req->execute(array(
           ':idQuizz' => $idQuizz
         ));

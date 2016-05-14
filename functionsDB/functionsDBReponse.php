@@ -44,7 +44,6 @@ function insertInReponse($texte,$idQuizz,$reponse){//Insère une réponse dans l
   function reponseInfo($texte,$idQuizz){//Renvoie toutes les réponses pour une question passé en paramètre
     if (canConnect()){
       include('secure/config.php');
-      $texte = trim(htmlentities(htmlspecialchars($texte)));
       $idQuizz =  trim(htmlentities(htmlspecialchars($idQuizz)));
       try{
         $bdd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
