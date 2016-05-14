@@ -11,5 +11,9 @@ if (isset($_GET['message_error']) AND $_GET['message_error']=="notFull"){
     echo "<div class='alert alert-danger' role='alert'>
     <a href=''# class='alert-link'>E-mail déjà utilisée</a>
     </div> ";
-  }
+  }elseif (isset($_GET['message_error']) AND $_GET['message_error']=="wrongEmail") {
+    echo "<div class='alert alert-danger' role='alert'>
+    <a href=''# class='alert-link'>E-mail non valide</a>
+    </div> ";
+    }
   ?>

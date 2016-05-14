@@ -12,7 +12,13 @@
       exit;
     }
     try{
-      insertInUsers($_POST['mail'],$_POST['mdp1'],$_POST['nom'],$_POST['prenom']);
+      if(isValidEmail($_POST['mail'])){
+        insertInUsers($_POST['mail'],$_POST['mdp1'],$_POST['nom'],$_POST['prenom']);
+      }else{
+        header('Location: CreationCompte.php?message_error=wrongEmail');
+        exit;
+      }
+
     }
     catch(Exception $e)
     {
@@ -20,7 +26,7 @@
     }
     setcookie('mail', $_POST['mail'], time() + 2*3600, null, null, false, true);
     setcookie('mdp', crypte($_POST['mdp']), time() + 2*3600, null, null, false, true);
-    header('Location: profil.php');
+    header('Location: affichageQuizz.php');
     exit;
 
   }elseif (isset($_GET['where']) AND $_GET['where']=="Connection"){//On vient de la page connection
@@ -53,4 +59,8 @@ if(!isset($_COOKIE['mail']) or !isset($_COOKIE['mdp'])){ //Dans tous les cas, il
   header('Location: Connection.php?message_error=infosErronees');
   exit;
 }
+
+  function isValidEmail($email){ //Vérifie si une adresse e-mail est valide
+      return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+  }
 ?>

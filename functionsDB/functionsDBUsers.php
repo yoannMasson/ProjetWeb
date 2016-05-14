@@ -40,7 +40,7 @@
    }
 
 function canConnect(){//Vérifie si l'utilisateur peut se connecter avec les informations présentes dans le cookie
-  if(!isset($_COOKIE['mail']) or !isset($_COOKIE['mail'])){
+  if(!isset($_COOKIE['mail']) or !isset($_COOKIE['mdp'])){
     return false;
   }else{
     include('secure/config.php');

@@ -3,8 +3,7 @@ include_once('footer.php');
 include_once ('functionsDB/functionsDBUsers.php');
 include_once ('functionsDB/functionsDBQuizz.php');
 include_once ('functionsDB/functionsDBQuestion.php');
-include_once('functionsDB/functionsDBReponse.php');
-include_once ('redirection/affichageQuizzRedirection.php');?>
+include_once('functionsDB/functionsDBReponse.php');?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +14,6 @@ include_once ('redirection/affichageQuizzRedirection.php');?>
 <body>
   <h1>Vous pouvez consulter tous les quizz</h1>
   <?php
-  include_once ('redirection/affichageQuizzRedirection.php');
   $quizzInfo = AllQuizzInfo();
   foreach ($quizzInfo as $quizz){
     echo '<p>';
