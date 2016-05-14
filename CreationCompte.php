@@ -14,9 +14,9 @@
   include_once('functionsError/creationError.php')
     ?>
 
-  <form method="post" action="profil.php?where=Creation">
+  <form method="post" action="CreationIntermediaire.php?where=Creation">
     <div class="input-group">
-      <span class="input-group-addon" id="basic-addon3">mail</span>
+      <span class="input-group-addon" id="basic-addon3">Mail</span>
       <input type="text" class="form-control" name="mail" placeholder="mail" id="mailCreation" >
     </div>
 

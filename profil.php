@@ -15,6 +15,7 @@ include_once('redirection/profilRedirection.php');
   <?php include('header.php'); ?>
   <h1>Bienvenue sur ce site</h1>
   <h2>Vous pouvez consulter votre profil sur cette page</h2>
+  <?php include_once('functionsError/profilError.php');?>
   <section>
     <aside>
         <form method="post" action="profil.php?where=profil">
@@ -35,7 +36,7 @@ include_once('redirection/profilRedirection.php');
         </div>
         <div class="panel-body">
           <?php $users = AllUsersInfoWithFollow();
-          foreach ($users as $user) {
+          foreach ($users as $user) { // Affichage des amis
             echo '<strong>'.$user['nom'].' '.$user['prenom'].'('.$user['mail'].')'.'</strong>'.'</br>';
             $quizz = lastQuizz($user['mail']);
             if(isset($quizz['idQuizz'])){
@@ -51,7 +52,6 @@ include_once('redirection/profilRedirection.php');
   </aside>
 
   <?php
-    include_once('functionsError/profilError.php');
       $donnees = UsersInfo();
       echo '<p>';
       echo '<strong>mail:</strong> '.$donnees['mail'].'</br>';

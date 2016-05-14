@@ -176,4 +176,7 @@ function crypte($mdp){//Crypte un mot de passe
      return $req->fetch();
   }
 
+  function isValidEmail($email){ //Vérifie si une adresse e-mail est valide
+      return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+  }
  ?>
