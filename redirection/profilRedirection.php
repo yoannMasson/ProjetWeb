@@ -41,6 +41,12 @@
     }
   }
 
+if (isset($_GET['where']) AND $_GET['where'] =="profil"){ //On vient de rajouter un ami
+  if(isset($_POST['follow']) and isInUsers($_POST['follow'])){
+    insertInFollow($_POST['follow']);
+  }
+}
+
 if(!isset($_COOKIE['mail']) or !isset($_COOKIE['mdp'])){ //Dans tous les cas, il faut être connecté pour accéder à son profil
   header('Location: Connection.php?message_error=connectionRequise');
 }elseif (!canConnect()) {

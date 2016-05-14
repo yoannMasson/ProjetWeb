@@ -17,6 +17,7 @@ function QuizzInfo(){ // renvoie les informations de tous les quizz d'un utilisa
 }
 
 
+
 function AllQuizzInfo(){ // renvoie les informations sur les quizzs, le nombre de réponses et sur l'utilisateur, nécéssite d'être connecté
   include('secure/config.php');
     try{

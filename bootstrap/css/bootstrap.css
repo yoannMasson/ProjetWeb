@@ -16,6 +16,13 @@ body {
   margin-left: 5%;
   margin-right: 5%;
 }
+.ami {
+  float:right;
+}
+aside{
+  float:right;
+  width: 40%;
+}
 article,
 aside,
 details,

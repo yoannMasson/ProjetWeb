@@ -78,6 +78,39 @@ function crypte($mdp){//Crypte un mot de passe
     }
   }
 
+  function AllUsersInfoWithoutFollow(){//Renvoie les informations de tous les utilisateurs que l'on ne suit pas, nécéssite d'être connecté
+  if (canConnect()){
+    include('secure/config.php');
+      try{
+        $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
+        $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      }
+      catch(Exception $e){
+        return $e;
+      }
+      $req = $bd->prepare("SELECT u.mail,u.nom,prenom FROM users u WHERE u.mail != :mail
+                          and u.mail not in (SELECT u2.mail FROM users u2, follow f WHERE f.mail2 = u2.mail and f.mail1=:mail)");
+      $req->execute(array(':mail' => $_COOKIE['mail']));
+      return $req;
+    }
+  }
+
+  function AllUsersInfoWithFollow(){//Renvoie les informations de tous les utilisateurs que l'on suit, nécéssite d'être connecté
+  if (canConnect()){
+    include('secure/config.php');
+      try{
+        $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
+        $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      }
+      catch(Exception $e){
+        return $e;
+      }
+      $req = $bd->prepare("SELECT u.mail,u.nom,prenom FROM users u,follow f WHERE u.mail != :mail  and f.mail1 = :mail and f.mail2=u.mail");
+      $req->execute(array(':mail' => $_COOKIE['mail']));
+      return $req;
+    }
+  }
+
   function nbQuizz(){//Renvoie le nombre de quizz de l'utilisateur, nécéssite d'être connecté
     if (canConnect()){
       include('secure/config.php');
@@ -91,6 +124,38 @@ function crypte($mdp){//Crypte un mot de passe
         $req = $bd->prepare("SELECT count(*) as nbQuizz FROM quizz q WHERE q.mail = :mail ");
         $req->execute(array(':mail' => $_COOKIE['mail']));
         return $req->fetch();
+    }
+  }
+
+  function lastQuizz($idQuizz){//Renvoie le dernier quizz d'un utilisateur
+    if (canConnect()){
+      include('secure/config.php');
+        try{
+          $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
+          $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch(Exception $e){
+          return $e;
+        }
+        $req = $bd->prepare("SELECT * FROM quizz q WHERE q.mail = :mail order by date desc limit 1");
+        $req->execute(array(':mail' => $idQuizz));
+        return $req->fetch();
+    }
+  }
+
+  function insertInFollow($mail){//Ajoute un follow dans la base, nécéssite d'être connecté
+    if(canConnect() and isInUsers($mail)){
+      include('secure/config.php');
+        try{
+          $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginEcriture,$passEcriture);
+          $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch(Exception $e){
+          return $e;
+        }
+        $req = $bd->prepare("Insert into follow(mail1,mail2) values (:mail1,:mail2)");
+        $req->execute(array(':mail1' => $_COOKIE['mail'],
+                            ':mail2'=> $mail));
     }
   }
 
