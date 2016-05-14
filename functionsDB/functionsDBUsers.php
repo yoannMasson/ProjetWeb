@@ -144,7 +144,7 @@ function crypte($mdp){//Crypte un mot de passe
   }
 
   function insertInFollow($mail){//Ajoute un follow dans la base, nécéssite d'être connecté
-    if(canConnect() and isInUsers($mail)){
+    if(canConnect() and isInUsers($mail) and !alreadyFollow($mail)){
       include('secure/config.php');
         try{
           $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginEcriture,$passEcriture);
@@ -157,6 +157,23 @@ function crypte($mdp){//Crypte un mot de passe
         $req->execute(array(':mail1' => $_COOKIE['mail'],
                             ':mail2'=> $mail));
     }
+  }
+
+  function alreadyFollow($mail){
+    include('secure/config.php');
+    $mail = trim(htmlentities(htmlspecialchars($mail)));
+    try{
+      $bdd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginLecture,$passLecture);
+    }
+    catch(Exception $e){
+      return $e;
+    }
+    $req = $bdd->prepare('SELECT * from follow where follow.mail1 = :mail1 and follow.mail2 = :mail2');
+    $req->execute(array(
+       ':mail1' => $_COOKIE['mail'],
+       ':mail2' => $mail
+     ));
+     return $req->fetch();
   }
 
  ?>
