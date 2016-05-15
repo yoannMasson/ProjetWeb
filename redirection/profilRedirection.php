@@ -4,8 +4,8 @@
       header('Location: Connexion.php?message_error=infoRequise');
       exit;
     }else{
-    setcookie('mail', $_POST['mail'], time() + 365*24*3600);
-    setcookie('mdp', crypte($_POST['mdp']), time() + 365*24*3600);
+    setcookie('mail', $_POST['mail'], time() + 2*3600);
+    setcookie('mdp', crypte($_POST['mdp']), time() + 2*3600);
     }
     header('Location: profil.php');
     exit;
