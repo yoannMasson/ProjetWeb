@@ -7,7 +7,9 @@
 <body>
   <?php
   include('header.php');
-  include('footer.php'); ?>
+  include('footer.php');
+  setcookie('mail');
+  setcookie('mdp'); ?>
   <h2>Vous êtes deconnecté</h2>
 </body>
 </html>

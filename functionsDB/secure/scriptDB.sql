@@ -14,3 +14,15 @@ CREATE TABLE Reponse (mail varchar(50),texte varchar(255),idQuizz mediumint,repo
                                                                                                  CONSTRAINT fk_mail_Reponse FOREIGN KEY (mail) REFERENCES Users(mail),
                                                                                                  CONSTRAINT fk_texte_Reponse FOREIGN KEY (texte) REFERENCES Question(texte));
 CREATE trigger triggerDeleteQuizz AFTER DELETE ON quizz FOR each ROW UPDATE users SET nbQuizzDelete = nbQuizzDelete +1 WHERE users.mail = OLD.mail;
+CREATE OR REPLACE trigger filtre_obscenite before
+INSERT ON users
+FOR each
+ROW BEGIN IF( new.nom LIKE  "%bite%"
+OR new.nom LIKE  "%MacIsTheBest%"
+OR new.prenom LIKE  "%bite%"
+OR new.prenom LIKE  "%MacIsTheBest%" )
+THEN SIGNAL sqlstate '45000';
+
+END IF ;
+
+END
