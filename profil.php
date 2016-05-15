@@ -18,6 +18,11 @@ include_once('redirection/profilRedirection.php');
   <?php include_once('functionsError/profilError.php');?>
   <section>
     <aside>
+      <form method="post" action="profil.php?where=profilChange">
+        <input type="texte" name="nom" placeholder="Changer votre nom">
+        <input type="texte" name="prenom" placeholder="Changer votre prenom">
+        <input type="submit"class="btn btn-sm btn-warning" value="Changer vos informations">
+      </form>
         <form method="post" action="profil.php?where=profil">
           <p>
             <label for="follow">Qui désirez-vous suivre ?</label><input type="submit" value="ajouter"/></br>

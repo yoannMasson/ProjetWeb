@@ -18,8 +18,17 @@
   }
 
 if (isset($_GET['where']) AND $_GET['where'] =="profil"){ //On vient de rajouter un ami
-  if(isset($_POST['follow']) and isInUsers($_POST['follow'])){
+  if (isset($_POST['follow']) and isInUsers($_POST['follow'])){
     insertInFollow($_POST['follow']);
+  }
+}
+
+if (isset($_GET['where']) AND $_GET['where'] =="profilChange"){//On vient de changer ses informations
+  if (isset($_POST['nom'])){
+    updateName($_POST['nom']);
+  }
+  if($_POST['prenom']){
+    updateFirstName($_POST['prenom']);
   }
 }
 

@@ -179,4 +179,36 @@ function crypte($mdp){//Crypte un mot de passe
   function isValidEmail($email){ //Vérifie si une adresse e-mail est valide
       return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
   }
+
+  function updateName($name){//Change le nom, ncéssite d'être connecté
+    if(canConnect()){
+      include('secure/config.php');
+        try{
+          $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginEcriture,$passEcriture);
+          $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch(Exception $e){
+          return $e;
+        }
+        $req = $bd->prepare("update users set nom = :nom where mail = :mail");
+        $req->execute(array(':mail' => $_COOKIE['mail'],
+                            ':nom'=> $name));
+    }
+  }
+
+  function updateFirstName($firstName){//Change le prénom, nécéssite d'être connecté
+    if(canConnect()){
+      include('secure/config.php');
+        try{
+          $bd = new PDO('mysql:host='.$hote.';dbname='.$dbName.';charset=utf8',$loginEcriture,$passEcriture);
+          $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch(Exception $e){
+          return $e;
+        }
+        $req = $bd->prepare("update users set prenom = :prenom where mail = :mail");
+        $req->execute(array(':mail' => $_COOKIE['mail'],
+                            ':prenom'=> $firstName));
+    }
+  }
  ?>
