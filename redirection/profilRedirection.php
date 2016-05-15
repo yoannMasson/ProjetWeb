@@ -24,10 +24,10 @@ if (isset($_GET['where']) AND $_GET['where'] =="profil"){ //On vient de rajouter
 }
 
 if (isset($_GET['where']) AND $_GET['where'] =="profilChange"){//On vient de changer ses informations
-  if (isset($_POST['nom'])){
+  if (isset($_POST['nom']) and $_POST['nom'] != "" ){
     updateName($_POST['nom']);
   }
-  if($_POST['prenom']){
+  if(isset($_POST['prenom'])  and $_POST['prenom'] != "" ){
     updateFirstName($_POST['prenom']);
   }
 }
