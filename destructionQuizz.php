@@ -1,6 +1,7 @@
 <?php
 include_once('functionsDB/functionsDBUsers.php');
 include_once('functionsDB/functionsDBQuizz.php');
+include_once('redirection/destructionQuizzRedirection.php');
 
 if (!canConnect()) {
   header('Location: Connection.php?message_error=connectionRequise');

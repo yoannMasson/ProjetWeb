@@ -1,10 +1,7 @@
 <?php
 include_once('functionsDB/functionsDBUsers.php');
 include_once('functionsDB/functionsDBQuizz.php');
-  if(!(canConnect())){
-  header('Location: Connexion.php?message_error=connectionRequise');
-  exit;
-  }
+include_once('redirection/creationQuizzRedirection.php');
   ?>
 
 <!DOCTYPE html>
