@@ -9,7 +9,9 @@
   <?php include('header.php'); ?>
   <h1>Bienvenue sur ce site</h1>
   <h2>Vous pouvez créer votre compte avec le formulaire ci-dessous</h2>
-
+  <div class='alert alert-warning' role='alert'>
+    Ce site utilise des cookies pour fonctionner, en créant votre compte vous consentez à les utiliser
+  </div>
   <?php
   include_once('functionsError/creationError.php')
     ?>
