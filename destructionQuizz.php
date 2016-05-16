@@ -2,15 +2,6 @@
 include_once('functionsDB/functionsDBUsers.php');
 include_once('functionsDB/functionsDBQuizz.php');
 include_once('redirection/destructionQuizzRedirection.php');
-
-if (!canConnect()) {
-  header('Location: Connection.php?message_error=connectionRequise');
-  exit;
-}
-if(!isset($_GET['idQuizz']) or !belongsTo($_GET['idQuizz'])){
-  header('Location: profil.php?message_error=suppressionImpossible');
-  exit;
-}
 ?>
 <!DOCTYPE html>
 <html>
