@@ -9,7 +9,7 @@
       <a href="CreationCompte.php" class="elementHeader">Créer un compte /</a>
       <?php
        if(isset($_COOKIE['mail']) and isset($_COOKIE['mdp']) and canConnect($_COOKIE['mail'],$_COOKIE['mdp'])){
-        echo '<a href="DeconnectionIntermediaire.php"class="elementHeader text-right">Se deconnecter</a>';
+        echo '<a href="deconnectionIntermediaire.php"class="elementHeader text-right">Se deconnecter</a>';
       }else{
         echo '<a href="Connexion.php"class="elementHeader  text-right">Connexion</a>';
       } ?>
