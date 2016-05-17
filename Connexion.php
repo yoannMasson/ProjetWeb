@@ -27,7 +27,7 @@
       <input type="submit" value="Valider" />
     </form>
 
-    <a class="btn btn-info btn-sm" href="creationCompte.php" role="button">Créer un compte</a>
+    <a class="btn btn-info btn-sm" href="CreationCompte.php" role="button">Créer un compte</a>
     <?php include('footer.php'); ?>
 </body>
 </html>
