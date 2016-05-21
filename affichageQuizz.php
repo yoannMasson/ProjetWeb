@@ -26,7 +26,7 @@ include_once('functionsDB/functionsDBReponse.php');?>
     if(canConnect()){
       echo '<a class="btn btn-info btn-sm" href="repondreQuizz.php?idQuizz='.$quizz['idQuizz'].'" role="button">Repondre au quizz</a>';
     }else{
-      echo '<a class="btn btn-info btn-sm" href="connexion.php" role="button">Connectez-vous pour répondre au quizz</a>';
+      echo '<a class="btn btn-info btn-sm" href="Connexion.php" role="button">Connectez-vous pour répondre au quizz</a>';
     }
     echo '</p>';
   }?>
